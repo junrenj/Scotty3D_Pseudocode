@@ -3,6 +3,25 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# 忽略 Visual Studio 生成的文件
+.vs/
+*.suo
+*.VC.db
+*.VC.opendb
+*.vcxproj.user
+*.filters
+*.ipch
+*.tlog
+*.obj
+*.pch
+*.ilk
+*.pdb
+*.idb
+*.log
+*.lastbuildstate
+bin/
+obj/
+
 # User-specific files
 *.rsuser
 *.suo
