@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Scotty3D",
-    "\\Scotty3D\\1.0_Rasterize_Line"
+    "\\Scotty3D\\1.0_Rasterize_Line",
+    "\\Scotty3D\\1.1_Rasterize_Triangle"
   ],
   "SelectedNode": "\\Scotty3D\\1.0_Rasterize_Line\\1.0_Rasterize_Line.cpp",
   "PreviewInSolutionExplorer": false
