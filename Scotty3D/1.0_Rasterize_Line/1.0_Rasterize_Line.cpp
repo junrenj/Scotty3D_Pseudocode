@@ -10,18 +10,12 @@ assert(false, "rasterize_line should only be invoked in flat interpolation mode.
     x0, y0, z0 = int(v0.x), int(v0.y), v0.z
     x1, y1, z1 = int(v1.x), int(v1.y), v1.z
 
-    dx = x1 - x0
-    dy = y1 - y0
-    dz = z1 - z0
+    dx = x1 - x0  dy = y1 - y0  dz = z1 - z0
 
     stepX, stepY = 1, 1
 
     // Ensure x0 <= x1 by swapping endpoints if necessary
-    if x1 < x0:
-    swap(v0, v1)
-    swap(x0, x1)
-    swap(y0, y1)
-    swap(z0, z1)
+    if x1 < x0: swap(v0, v1) swap(x0, x1) swap(y0, y1) swap(z0, z1)
     dx, dy, dz = x1 - x0, y1 - y0, z1 - z0
 
     // Adjust step direction for y
@@ -39,7 +33,6 @@ assert(false, "rasterize_line should only be invoked in flat interpolation mode.
     dz = dz / max(dx, dy)
 
     x, y = x0, y0
-
 
     centerX = x + 0.5
     centerY = y + 0.5
