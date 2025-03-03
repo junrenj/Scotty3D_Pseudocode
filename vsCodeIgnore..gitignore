@@ -1,2 +1,0 @@
-touch .gitignore  # macOS / Linux
-echo > .gitignore  # Windows
