@@ -1,84 +1,63 @@
-﻿// This is just the Pseudocode of logic, not the real code
+﻿function rasterize_line(va, vb, emit_fragment) :
+    // Ensure this function is only used in flat interpolation mode
+    if (flags & PipelineMask_Interp) != Pipeline_Interp_Flat:
+assert(false, "rasterize_line should only be invoked in flat interpolation mode.")
 
-FUNCTION rasterize_line(va, vb, emit_fragment) :
-    IF(flags& PipelineMask_Interp) ≠ Pipeline_Interp_Flat THEN
-    ASSERT ERROR "rasterize_line should only be invoked in flat interpolation mode."
-
-    // 获取屏幕空间坐标
+    // Extract screen space coordinates
     v0 = va.fb_position
     v1 = vb.fb_position
-    x0, y0, z0 = v0.x, v0.y, v0.z
-    x1, y1, z1 = v1.x, v1.y, v1.z
+    x0, y0, z0 = int(v0.x), int(v0.y), v0.z
+    x1, y1, z1 = int(v1.x), int(v1.y), v1.z
 
     dx = x1 - x0
     dy = y1 - y0
     dz = z1 - z0
 
-    stepX = 1
-    stepY = 1
-    isSwap = FALSE
+    stepX, stepY = 1, 1
 
-    // 确保 x1 > x0
-    IF x1 < x0 THEN
-    SWAP(v0, v1)
-    SWAP(x0, x1)
-    SWAP(y0, y1)
-    SWAP(z0, z1)
-    dx = x1 - x0
-    dy = y1 - y0
-    dz = z1 - z0
-    isSwap = TRUE
+    // Ensure x0 <= x1 by swapping endpoints if necessary
+    if x1 < x0:
+    swap(v0, v1)
+    swap(x0, x1)
+    swap(y0, y1)
+    swap(z0, z1)
+    dx, dy, dz = x1 - x0, y1 - y0, z1 - z0
 
-    // 确保 y 方向步进
-    IF y1 < y0 THEN
+    // Adjust step direction for y
+    if y1 < y0:
     stepY = -1
-    dy = ABS(dy)
+    dy = abs(dy)
 
+    // Calculate line slope
     slope = dy / dx
 
+    // Error terms for Bresenham’s line algorithm
     errX = 2 * dy - dx
     errY = 2 * dx - dy
 
-    dz = dz / MAX(dx, dy)
+    dz = dz / max(dx, dy)
 
-    x = x0
-    y = y0
+    x, y = x0, y0
 
-    FUNCTION FloatEqual(a, target) :
-    RETURN ABS(a - target) ≤ 1e-9
 
-    WHILE TRUE :
-centerX = x + 0.5
-centerY = y + 0.5
+    centerX = x + 0.5
+    centerY = y + 0.5
 
-frag.fb_position = (centerX, centerY, z0)
-frag.derivatives = (0, 0)
-frag.attributes = va.attributes
+    frag = Fragment()
+    frag.fb_position = Vec3(centerX, centerY, z0)
+    frag.derivatives.fill(Vec2(0.0, 0.0))
+    frag.attributes = va.attributes
 
-IF x = x0 AND y = y0 THEN
-IF isSwap AND DiamondExitEnd(x, y, v0.x, v0.y, (v1.x - v0.x) / (v1.y - v0.y)) THEN
-CALL emit_fragment(frag)
-
-IF x = x1 AND y = y1 THEN
-IF NOT isSwap AND DiamondExitEnd(x, y, v1.x, v1.y, slope) THEN
-CALL emit_fragment(frag)
-ELSE
-CALL emit_fragment(frag)
-BREAK
-ELSE
-CALL emit_fragment(frag)
-
-// X 方向主导
-IF errX < 0 THEN
+    // Bresenham - style error checking for stepping
+    if errX < 0:
     errX += 2 * dy
-    ELSE
+    else:
     errX += 2 * (dy - dx)
     y += stepY
 
-    // Y 方向主导
-    IF errY < 0 THEN
-    errY += 2 * dx
-    ELSE
+    if errY < 0 :
+        errY += 2 * dx
+    else:
     errY += 2 * (dx - dy)
     x += stepX
 
