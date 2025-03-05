@@ -20,30 +20,30 @@ function flip_edge(edge e) :
 
     // Special Case 3: If v1 or v2 has only two connected edges, return null
     if v1.degree() <= 2 or v2.degree() <= 2:
-return null
+        return null
 
-// Step 3: Rewire half-edges to perform the edge flip
-toH.next = t.next  // Replace h with t.next
-toT.next = h.next  // Replace t with h.next
-t_next, h_next = t.next, h.next
+    // Step 3: Rewire half-edges to perform the edge flip
+    toH.next = t.next  // Replace h with t.next
+    toT.next = h.next  // Replace t with h.next
+    t_next, h_next = t.next, h.next
 
-// Step 4: Update vertex connections
-v1.halfedge = t.next
-v2.halfedge = h.next
+    // Step 4: Update vertex connections
+    v1.halfedge = t.next
+    v2.halfedge = h.next
 
-// Step 5: Swap edge vertices
-t.vertex = v3
-h.vertex = v4
-h.next = h.next.next
-t.next = t.next.next
-h_next.next = t
-t_next.next = h
+    // Step 5: Swap edge vertices
+    t.vertex = v3
+    h.vertex = v4
+    h.next = h.next.next
+    t.next = t.next.next
+    h_next.next = t
+    t_next.next = h
 
-// Step 6: Update face ownership
-assign_face(h, f1)
-assign_face(t, f2)
+    // Step 6: Update face ownership
+    assign_face(h, f1)
+    assign_face(t, f2)
 
-return e // Return flipped edge reference
+    return e // Return flipped edge reference
 
 
 
@@ -100,7 +100,7 @@ function split_edge(edge e) :
     if f2 is not boundary :
         connect_vertex(newV, v4, t_half, t, f2)
 
-        return newV
+    return newV
 
 
 function collapse_edge(edge e) :
