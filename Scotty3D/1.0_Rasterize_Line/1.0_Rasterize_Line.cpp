@@ -1,8 +1,5 @@
 ﻿// This is just the pseudocode for bresenham line rasterization
 function rasterize_line(va, vb, emit_fragment) :
-    // Ensure this function is only used in flat interpolation mode
-    if (flags & PipelineMask_Interp) != Pipeline_Interp_Flat:
-assert(false, "rasterize_line should only be invoked in flat interpolation mode.")
 
     // Extract screen space coordinates
     v0 = va.fb_position
