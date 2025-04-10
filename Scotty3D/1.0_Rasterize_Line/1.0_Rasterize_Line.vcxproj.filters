@@ -36,5 +36,8 @@
     <ClCompile Include="3.1_Ray_BVH.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="3.2_BRDF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
