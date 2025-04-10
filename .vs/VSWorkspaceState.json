@@ -3,8 +3,12 @@
     "",
     "\\Scotty3D",
     "\\Scotty3D\\1.0_Rasterize_Line",
-    "\\Scotty3D\\1.1_Rasterize_Triangle"
+    "\\Scotty3D\\1.3_Supersampling",
+    "\\Scotty3D\\2.1_LocalOperation",
+    "\\Scotty3D\\2.2_GlobalOperation",
+    "\\Scotty3D\\3.1_Ray",
+    "\\Scotty3D\\3.2_BRDF"
   ],
-  "SelectedNode": "\\Scotty3D\\1.1_Rasterize_Triangle\\1.1_Rasterize_Triangle.cpp",
+  "SelectedNode": "\\Scotty3D\\3.1_Ray\\3.1_Ray_BVH.cpp",
   "PreviewInSolutionExplorer": false
 }

@@ -133,6 +133,7 @@
     <ClCompile Include="1.3_Supersamling.cpp" />
     <ClCompile Include="2.1_localOperation.cpp" />
     <ClCompile Include="2.2_GlobalOperation.cpp" />
+    <ClCompile Include="3.1_Ray_BVH.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
